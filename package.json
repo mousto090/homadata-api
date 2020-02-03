@@ -1,6 +1,9 @@
 {
   "name": "homadataapi",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/mousto090/homadata-api"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

@@ -24,7 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //enable cors for localhost testing
 app.use(function(req, res, next) {
     const origin = req.headers.origin;
-    if (/^http:\/\/localhost(\.\w+)*(:[0-9]+)?\/?$/.test(origin)) {
+    const firebaseAppURL = 'https://homadata-app.firebaseapp.com/';
+    if (/^http:\/\/localhost(\.\w+)*(:[0-9]+)?\/?$/.test(origin) || origin === firebaseAppURL) {
         res.header("Access-Control-Allow-Origin", origin);
         res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     }
@@ -32,6 +33,9 @@ app.use(function(req, res, next) {
 });
 
 app.use('/api', apiRoutes);
+app.get('/', function(req, res) {
+    res.send({ message: "Welcome! the API is UP and RUNNING !" });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
