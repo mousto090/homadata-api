@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 var dotenv = require('dotenv');
 const result = dotenv.config();
 debug(result);
@@ -12,7 +13,8 @@ var apiRoutes = require('./app/routes/index');
 
 var app = express();
 
-
+//enable cors to access api form firebase
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -20,17 +22,6 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-//enable cors for localhost testing
-app.use(function(req, res, next) {
-    const origin = req.headers.origin;
-    const firebaseAppURL = 'https://homadata-app.firebaseapp.com/';
-    if (/^http:\/\/localhost(\.\w+)*(:[0-9]+)?\/?$/.test(origin) || origin === firebaseAppURL) {
-        res.header("Access-Control-Allow-Origin", origin);
-        res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    }
-    next();
-});
 
 app.use('/api', apiRoutes);
 app.get('/', function(req, res) {
