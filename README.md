@@ -5,6 +5,7 @@ Version nodejs utilisée: 12.5.x
 
 ## Development server
 
+Exécuter `npm install` pour installer les dépendences 
 Exécuter `DEBUG=homadataapi:* npm run dev` pour démarrer le serveur en mode dev puis naviguer à l'URL `http://localhost:3000/`. Le serveur se redémarre automatiquement si vous effectuez des modifications. Les variables d'environnements sont définies dans le fichier .env
 
 ## Running unit tests
